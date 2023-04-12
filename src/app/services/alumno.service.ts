@@ -19,16 +19,16 @@ export class AlumnoService {
   alumnos: Alumno[] = [
     {
       id: this.generarIdUnico(),
-      nombre: 'Lionel',
-      apellido: 'Martinez',
+      nombre: 'lionel',
+      apellido: 'marGez',
       email: 'lio.matinez@gmail.com', 
       curso: 'Producto',
       fecha_inscripcion: new Date(),
     },
     {
       id: this.generarIdUnico(),
-      nombre: 'Julian',
-      apellido: 'Sanchez',
+      nombre: 'julia',
+      apellido: 'sanchez',
       email: 'juli.sanchez@gmail.com',
       curso: 'Artes Digitales',
       fecha_inscripcion: new Date(),
@@ -36,7 +36,7 @@ export class AlumnoService {
     {
       id: this.generarIdUnico(),
       nombre: 'Agustina',
-      apellido: 'Garcia',
+      apellido: 'garcia',
       email: 'agus.1990@gmail.com',
       curso: 'Diseño UX/UI',
       fecha_inscripcion: new Date(),
