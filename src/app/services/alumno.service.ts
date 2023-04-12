@@ -4,6 +4,7 @@ import { Alumno } from '../pages/alumnos/alumnos.component';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AlumnoService {
 
   alumnos: Alumno[] = [

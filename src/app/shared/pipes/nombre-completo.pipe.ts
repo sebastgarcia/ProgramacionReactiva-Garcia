@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Alumno } from 'src/app/pages/alumnos/alumnos.component';
 
 @Pipe({
-  name: 'nombreCompelto'
+  name: 'nombreCompelto',
+  pure: false,
 })
 export class NombreCompletoPipe implements PipeTransform {
 

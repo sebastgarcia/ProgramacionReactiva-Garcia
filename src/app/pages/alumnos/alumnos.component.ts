@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ComponentFixture } from '@angular/core/testing';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { AbmAlumnosComponent, Curso } from './abm-alumnos/abm-alumnos.component';
 import { AlumnoService } from 'src/app/services/alumno.service';
-import { MatCellDef } from '@angular/material/table';
+
 
 export interface Alumno {
   id: number;
@@ -76,7 +75,46 @@ export class AlumnosComponent {
   }
 
   editarAlumno(usuario: any, index: any): void {
-    const dialog = this.matDialog.open(AbmAlumnosComponent)
+    console.log('usuario:::-> ', usuario);
+    const dialog = this.matDialog.open(AbmAlumnosComponent,{
+      data: { alumno: usuario }
+    });
+
+    dialog.afterClosed().subscribe((valor)=>{
+      console.log('valoadsfsadfasr::: ', valor);
+
+      //Actualizar un estudiante cuando el valor.matricula sea igual a this.estudiantes.matricula
+      if (valor) {
+        console.log('valor::: ', valor);
+        // buscar el estudiante en el arreglo que sea igual a valor.matricula
+        const alumno = this.alumnos.find((alumno) =>alumno.id === valor.id);
+        console.log('alumno::: ', alumno);
+
+        // El estudiante ya existe, actualiza sus propiedades
+        if (alumno) {
+          // eliminar estudiante del arreglo
+          this.alumnos = this.alumnos.filter((alumno) => alumno.id !== valor.id);
+
+          // Actualizar propiedades del estudiante
+          alumno.nombre = valor.nombre;
+          alumno.apellido = valor.apellido;
+          alumno.email = valor.email;
+          alumno.curso = valor.curso;
+
+          // Update de estudiante en el arreglo de estudiantes
+          this.alumnos.unshift(alumno);
+         
+
+          
+          // Emitir evento de estudiantes actualizados
+
+          this.dataSource.data 
+        }
+
+      }
+
+    })
+  
   }
   
 }
