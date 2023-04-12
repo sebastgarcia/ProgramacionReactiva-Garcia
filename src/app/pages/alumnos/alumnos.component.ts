@@ -4,6 +4,7 @@ import { ComponentFixture } from '@angular/core/testing';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { AbmAlumnosComponent, Curso } from './abm-alumnos/abm-alumnos.component';
+import { AlumnoService } from 'src/app/services/alumno.service';
 
 export interface Alumno {
   id: number;
@@ -22,40 +23,43 @@ export interface Alumno {
 
 
 export class AlumnosComponent {
-  alumnos: Alumno[] = [
-    {
-      id: 1,
-      nombre: 'Lionel',
-      apellido: 'Martinez',
-      email: 'lio.matinez@gmail.com', 
-      curso: 'Producto',
-      fecha_inscripcion: new Date(),
-    },
-    {
-      id: 2,
-      nombre: 'Julian',
-      apellido: 'Sanchez',
-      email: 'juli.sanchez@gmail.com',
-      curso: 'Artes Digitales',
-      fecha_inscripcion: new Date(),
-    },
-    {
-      id: 3,
-      nombre: 'Agustina',
-      apellido: 'Garcia',
-      email: 'agus.1990@gmail.com',
-      curso: 'Diseño UX/UI',
-      fecha_inscripcion: new Date(),
-    },
-    {
-      id: 4,
-      nombre: 'Micaela',
-      apellido: 'Godoy',
-      email: 'mica.god@hotmail.com',
-      curso: 'Data',
-      fecha_inscripcion: new Date(),
-    },
-  ];
+  // alumnos: Alumno[] = [
+  //   {
+  //     id: 1,
+  //     nombre: 'Lionel',
+  //     apellido: 'Martinez',
+  //     email: 'lio.matinez@gmail.com', 
+  //     curso: 'Producto',
+  //     fecha_inscripcion: new Date(),
+  //   },
+  //   {
+  //     id: 2,
+  //     nombre: 'Julian',
+  //     apellido: 'Sanchez',
+  //     email: 'juli.sanchez@gmail.com',
+  //     curso: 'Artes Digitales',
+  //     fecha_inscripcion: new Date(),
+  //   },
+  //   {
+  //     id: 3,
+  //     nombre: 'Agustina',
+  //     apellido: 'Garcia',
+  //     email: 'agus.1990@gmail.com',
+  //     curso: 'Diseño UX/UI',
+  //     fecha_inscripcion: new Date(),
+  //   },
+  //   {
+  //     id: 4,
+  //     nombre: 'Micaela',
+  //     apellido: 'Godoy',
+  //     email: 'mica.god@hotmail.com',
+  //     curso: 'Data',
+  //     fecha_inscripcion: new Date(),
+  //   },
+  // ];
+
+  alumnos: Alumno [] = [];
+
 
   dataSource = new MatTableDataSource(this.alumnos);
 
@@ -70,7 +74,16 @@ export class AlumnosComponent {
 
 
 
-  constructor(private matDialog: MatDialog) {}
+  constructor(private matDialog: MatDialog, private alumnoService: AlumnoService) {}
+
+  ngOnInit(): void{
+    this.cargarAlumnos()
+  }
+
+  cargarAlumnos() {
+    this.alumnos = this.alumnoService.getAlumno();
+    this.dataSource = new MatTableDataSource(this.alumnos)
+  }
 
   abrirABMAlumnos(): void {
     const dialog = this.matDialog.open(AbmAlumnosComponent)
@@ -87,5 +100,10 @@ export class AlumnosComponent {
         ];
       }
     })
+  }
+
+  borrarAlumno(index: number){
+    this.alumnoService.borrarAlumno(index);
+    this.cargarAlumnos();
   }
 }
