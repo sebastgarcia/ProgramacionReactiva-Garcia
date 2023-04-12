@@ -67,7 +67,15 @@
 </div>
 
 <div mat-dialog-actions >
-  <button  mat-button mat-dialog-close>Cancelar</button>
-  <button (click)="guardar()" mat-button >Guardar</button>
+  <button 
+  mat-button 
+  mat-dialog-close
+  >Cancelar</button>
+  
+  <button 
+  (click)="guardar()" 
+  mat-button 
+  [disabled]="formularioNuevoAlumno.invalid"
+  >Guardar</button>
 </div>
 

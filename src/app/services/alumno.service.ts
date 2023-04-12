@@ -50,4 +50,6 @@ export class AlumnoService {
   borrarAlumno(index: number){
     this.alumnos.splice(index, 1)
   }
+
+ 
 }

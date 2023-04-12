@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { AbmAlumnosComponent, Curso } from './abm-alumnos/abm-alumnos.component';
 import { AlumnoService } from 'src/app/services/alumno.service';
+import { MatCellDef } from '@angular/material/table';
 
 export interface Alumno {
   id: number;
@@ -23,40 +24,7 @@ export interface Alumno {
 
 
 export class AlumnosComponent {
-  // alumnos: Alumno[] = [
-  //   {
-  //     id: 1,
-  //     nombre: 'Lionel',
-  //     apellido: 'Martinez',
-  //     email: 'lio.matinez@gmail.com', 
-  //     curso: 'Producto',
-  //     fecha_inscripcion: new Date(),
-  //   },
-  //   {
-  //     id: 2,
-  //     nombre: 'Julian',
-  //     apellido: 'Sanchez',
-  //     email: 'juli.sanchez@gmail.com',
-  //     curso: 'Artes Digitales',
-  //     fecha_inscripcion: new Date(),
-  //   },
-  //   {
-  //     id: 3,
-  //     nombre: 'Agustina',
-  //     apellido: 'Garcia',
-  //     email: 'agus.1990@gmail.com',
-  //     curso: 'Diseño UX/UI',
-  //     fecha_inscripcion: new Date(),
-  //   },
-  //   {
-  //     id: 4,
-  //     nombre: 'Micaela',
-  //     apellido: 'Godoy',
-  //     email: 'mica.god@hotmail.com',
-  //     curso: 'Data',
-  //     fecha_inscripcion: new Date(),
-  //   },
-  // ];
+  
 
   alumnos: Alumno [] = [];
 
@@ -106,4 +74,9 @@ export class AlumnosComponent {
     this.alumnoService.borrarAlumno(index);
     this.cargarAlumnos();
   }
+
+  editarAlumno(usuario: any, index: any): void {
+    const dialog = this.matDialog.open(AbmAlumnosComponent)
+  }
+  
 }

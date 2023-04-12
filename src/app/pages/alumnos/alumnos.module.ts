@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AlumnosComponent } from './alumnos.component';
-import { MatTableModule } from '@angular/material/table';
+import { MatCellDef, MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -41,7 +41,7 @@ import { DirectivesModule } from 'src/app/shared/directives/directives.module';
     SharedModule,
     DirectivesModule,
     PipesModule,
-  ],
+    ],
   exports: [
     AlumnosComponent
   ]

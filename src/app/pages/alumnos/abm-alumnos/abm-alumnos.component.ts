@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { AlumnoService } from 'src/app/services/alumno.service';
 
 
 
@@ -15,6 +16,8 @@ export interface Curso{
 })
 
 export class AbmAlumnosComponent {
+
+
 
  cursos: Curso[] = [
     {value: 'Artes Digitales', viewValue: 'Artes Digitales',},
@@ -58,23 +61,37 @@ export class AbmAlumnosComponent {
  ]
 );
 
-
   formularioNuevoAlumno = new FormGroup({
     nombre: this.nombreControl,
     apellido: this.apellidoControl,
     email: this.emailControl,
     curso: this.cursoControl,
 });
-error: any;
 
 
 
 
 
 
-constructor(private dialogRef: MatDialogRef<AbmAlumnosComponent>) {}
+
+constructor(private dialogRef: MatDialogRef<AbmAlumnosComponent>, private alumnoService: AlumnoService, private matDialog: MatDialog) {}
 
 guardar():void {
   this.dialogRef.close(this.formularioNuevoAlumno.value)
 }
+
+currentIndex: any;
+
+editarAlumno(usuario: any, index: any){
+  
+
+  console.log(index)
+  this.currentIndex = index;
+  
+  this.matDialog.open(AbmAlumnosComponent).afterOpened().subscribe(index)
+  
+  this.formularioNuevoAlumno.setValue(usuario)
+  
+}
+
 }
