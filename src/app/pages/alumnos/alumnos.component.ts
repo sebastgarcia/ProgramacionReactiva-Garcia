@@ -57,7 +57,6 @@ export class AlumnosComponent {
 
     dialog.afterClosed().subscribe((valor) => {
       if (valor) {
-        console.log('valor::: ', valor);
         this.alumnoService.agregarAlumno(valor);
 
         this.dataSource.data = this.alumnoService.getAlumno();
@@ -71,39 +70,36 @@ export class AlumnosComponent {
   }
 
   editarAlumno(usuario: any, index: any): void {
-    console.log('usuario:::-> ', usuario);
     const dialog = this.matDialog.open(AbmAlumnosComponent, {
       data: { alumno: usuario },
     });
 
     this.cargarAlumnos();
     dialog.afterClosed().subscribe((valor) => {
-      console.log('valoadsfsadfasr::: ', valor);
 
-      //Actualizar un estudiante cuando el valor.matricula sea igual a this.estudiantes.matricula
+
+      //Actualizar un alumno cuando el valor.id sea igual a this.alumnos.id
       if (valor) {
-        console.log('valor::: ', valor);
-        // buscar el estudiante en el arreglo que sea igual a valor.matricula
+        // buscar el alumno en el arreglo que sea igual a valor.id
         const alumno = this.alumnos.find((alumno) => alumno.id === valor.id);
-        console.log('alumno::: ', alumno);
 
-        // El estudiante ya existe, actualiza sus propiedades
+        // El alumno ya existe, actualiza sus propiedades
         if (alumno) {
-          // eliminar estudiante del arreglo
+          // eliminar alumno del arreglo
           this.alumnos = this.alumnos.filter(
             (alumno) => alumno.id !== valor.id
           );
 
-          // Actualizar propiedades del estudiante
+          // Actualizar propiedades del alumno
           alumno.nombre = valor.nombre;
           alumno.apellido = valor.apellido;
           alumno.email = valor.email;
           alumno.curso = valor.curso;
 
-          // Update de estudiante en el arreglo de estudiantes
+          // Update de alumno en el arreglo de alumnos
           this.alumnos.unshift(alumno);
 
-          // Emitir evento de estudiantes actualizados
+          // Emitir evento de alumnos actualizados
           this.dataSource.data;
         }
       }

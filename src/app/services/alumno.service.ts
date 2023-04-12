@@ -9,7 +9,6 @@ import { Alumno } from '../pages/alumnos/alumnos.component';
 export class AlumnoService {
 
   generarIdUnico = () => { 
-    //return Math.random().toString(30).substring(2);           
     return 'nnnnn'.replace(/[nt]/g, function(c) {
       var r = Math.random() * 5 | 0, v = c == 'n' ? r : (r & 0x3 | 0x8);
       return v.toString(5);
