@@ -1,0 +1,38 @@
+<form [formGroup]="formularioNuevoAlumno">
+
+<mat-form-field appearance="outline">
+  <mat-label>Nombre</mat-label>
+  <input 
+    [formControl]="nombreControl"
+    matInput 
+    placeholder="Nombre" 
+    />
+  <mat-hint></mat-hint>
+  <mat-error *ngFor="let error of nombreControl.errors | keyvalue">{{ error | ControlErrorMessages }}</mat-error>
+</mat-form-field>
+
+
+<mat-form-field appearance="outline">
+    <mat-label>Email</mat-label>
+    <input 
+      [formControl]="emailControl"
+      matInput 
+      placeholder="Email@ejempli.com" 
+      />
+    <mat-hint></mat-hint>
+    <mat-error *ngFor="let error of emailControl.errors | keyvalue">{{ error | ControlErrorMessages }}</mat-error>
+  </mat-form-field>
+
+<mat-form-field appearance="outline">
+    <mat-label>Seleccione un curso</mat-label>
+    <mat-select>
+        <!-- <option selected>Elige...</option> -->
+            <ng-container *ngFor="let curso of cursos">
+              <mat-option>{{curso}}</mat-option>
+            </ng-container>
+    </mat-select>
+</mat-form-field>
+
+</form>
+
+<pre>{{nombreControl.errors | keyvalue | json }}</pre>

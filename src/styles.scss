@@ -1,1 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+mat-drawer-container mat-drawer{
+  
+
+    .mat-drawer-inner-container{
+      display: flex;
+      flex-direction: column;
+
+      button{
+        margin: 10px;
+      }
+    }
+
+    
+  }
+
+  app-alumnos{
+    display: flex;
+    flex-direction: column;
+
+    h1{
+        margin: 0!important;
+    }
+
+    div.mb-3 button{
+        margin-left: auto;
+        display: flex;
+        color: rgb(30, 30, 200)!important;
+    }
+}
+
+.btn-acciones{
+  font-size: 20px;
+  vertical-align: middle;
+  text-align: center;
+  color: rgb(9, 171, 146);
+  cursor: pointer;
+  margin: 0 0 0 15px;
+  
+}
