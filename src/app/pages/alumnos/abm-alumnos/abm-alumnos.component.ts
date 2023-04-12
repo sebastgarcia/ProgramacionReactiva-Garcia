@@ -29,9 +29,12 @@ export class AbmAlumnosComponent {
     {value: 'Business', viewValue: 'Business',},
     {value: 'Producto', viewValue: 'Producto',},
   ];
+  generarIdUnico = () => { 
+    return Math.random().toString(30).substring(2);           
+} 
 
   idControl = new FormControl(
-    ''
+    this.generarIdUnico()
   );
 
   nombreControl = new FormControl(

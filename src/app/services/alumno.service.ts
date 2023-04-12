@@ -5,11 +5,20 @@ import { Alumno } from '../pages/alumnos/alumnos.component';
   providedIn: 'root'
 })
 
+
 export class AlumnoService {
+
+  generarIdUnico = () => { 
+    //return Math.random().toString(30).substring(2);           
+    return 'nnnnn'.replace(/[nt]/g, function(c) {
+      var r = Math.random() * 5 | 0, v = c == 'n' ? r : (r & 0x3 | 0x8);
+      return v.toString(5);
+  });
+} 
 
   alumnos: Alumno[] = [
     {
-      id: 1,
+      id: this.generarIdUnico(),
       nombre: 'Lionel',
       apellido: 'Martinez',
       email: 'lio.matinez@gmail.com', 
@@ -17,7 +26,7 @@ export class AlumnoService {
       fecha_inscripcion: new Date(),
     },
     {
-      id: 2,
+      id: this.generarIdUnico(),
       nombre: 'Julian',
       apellido: 'Sanchez',
       email: 'juli.sanchez@gmail.com',
@@ -25,7 +34,7 @@ export class AlumnoService {
       fecha_inscripcion: new Date(),
     },
     {
-      id: 3,
+      id: this.generarIdUnico(),
       nombre: 'Agustina',
       apellido: 'Garcia',
       email: 'agus.1990@gmail.com',
@@ -33,7 +42,7 @@ export class AlumnoService {
       fecha_inscripcion: new Date(),
     },
     {
-      id: 4,
+      id: this.generarIdUnico(),
       nombre: 'Micaela',
       apellido: 'Godoy',
       email: 'mica.god@hotmail.com',
@@ -52,5 +61,15 @@ export class AlumnoService {
     this.alumnos.splice(index, 1)
   }
 
+  agregarAlumno(alumno: any){
+    const alumnoObj = {
+      ...alumno,
+      fecha_inscripcion: new Date(),
+      
+      id: this.generarIdUnico()
+    }
+    this.alumnos.push(alumnoObj)
+
+}
  
 }
