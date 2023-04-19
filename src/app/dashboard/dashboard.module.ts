@@ -6,7 +6,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { AlumnosModule } from '../pages/alumnos/alumnos.module';
-import { DialogsModule } from '../pages/dialogs/dialogs.module';
+
 
 
 
@@ -22,7 +22,7 @@ import { DialogsModule } from '../pages/dialogs/dialogs.module';
     MatIconModule,
     MatButtonModule,
     AlumnosModule,
-    DialogsModule,
+
 
   ],
   exports: [

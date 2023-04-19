@@ -41,6 +41,7 @@ import { DirectivesModule } from 'src/app/shared/directives/directives.module';
     SharedModule,
     DirectivesModule,
     PipesModule,
+  
     ],
   exports: [
     AlumnosComponent

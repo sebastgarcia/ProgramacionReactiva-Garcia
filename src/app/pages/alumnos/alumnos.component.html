@@ -1,11 +1,19 @@
 <h1 appFontSize>Alumnos Inscriptos</h1>
 
+<div class="row">
+  <p>Hay {{ numAlumnos }} inscriptos</p>
+
 <div class="mb-3">
   <button mat-button (click)="abrirABMAlumnos()">
     <mat-icon>add</mat-icon>
     Agregar Alumno
   </button>
+</div> 
 </div>
+
+
+
+
 
 <table mat-table [dataSource]="dataSource">
   <!-- ID Column -->

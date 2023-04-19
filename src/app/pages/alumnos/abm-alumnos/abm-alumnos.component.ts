@@ -18,8 +18,6 @@ export interface Curso{
 
 export class AbmAlumnosComponent {
 
-
-
  cursos: Curso[] = [
     {value: 'Artes Digitales', viewValue: 'Artes Digitales',},
     {value: 'Diseño UX/UI', viewValue: 'Diseño UX/UI',},
@@ -77,9 +75,11 @@ export class AbmAlumnosComponent {
 
 
 
-constructor(private dialogRef: MatDialogRef<AbmAlumnosComponent>,
-  private alumnoService: AlumnoService, private matDialog: MatDialog,
-  @Inject(MAT_DIALOG_DATA) public data: { alumno?: any }) {}
+constructor(
+  private dialogRef: MatDialogRef<AbmAlumnosComponent>,
+ // private alumnosService: AlumnoService, 
+  private matDialog: MatDialog,
+  @Inject(MAT_DIALOG_DATA) public data: { alumno?: any }) { }
 
 ngOnInit(): void {
  if (this.data && this.data.alumno) {
@@ -91,14 +91,13 @@ ngOnInit(): void {
        apellido: alumno.apellido,
        email: alumno.email,
        curso:  alumno.curso
-     });
-
-     
+     });    
  }
 }
 
 guardar():void {
   this.dialogRef.close(this.formularioNuevoAlumno.value)
+ // this.alumnosService.agregarAlumno(this.formularioNuevoAlumno.value);
 }
 
 

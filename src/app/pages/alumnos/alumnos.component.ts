@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
@@ -7,6 +7,7 @@ import {
   Curso,
 } from './abm-alumnos/abm-alumnos.component';
 import { AlumnoService } from 'src/app/services/alumno.service';
+import { Subscription } from 'rxjs';
 
 export interface Alumno {
   id: any;
@@ -22,8 +23,12 @@ export interface Alumno {
   templateUrl: './alumnos.component.html',
   styleUrls: ['./alumnos.component.scss'],
 })
-export class AlumnosComponent {
+export class AlumnosComponent implements OnInit, OnDestroy {
   alumnos: Alumno[] = [];
+  cargando = false;
+  numAlumnos: number | any;
+  suscripcionCantidadAlumnos: Subscription | null = null;
+  suscripcionListadoAlumnos: Subscription | null = null;
 
   dataSource = new MatTableDataSource(this.alumnos);
 
@@ -39,28 +44,60 @@ export class AlumnosComponent {
   constructor(
     private matDialog: MatDialog,
     private alumnoService: AlumnoService
-  ) {}
+  ) {
+    this.numAlumnos = this.alumnoService.cantidadAlumnosInscriptos();
+  }
+
+  ngOnDestroy(): void {
+    this.suscripcionListadoAlumnos?.unsubscribe();
+    this.suscripcionCantidadAlumnos?.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.cargarAlumnos();
+    this.suscripcionListadoAlumnos;
+    this.suscripcionCantidadAlumnos;
   }
 
   cargarAlumnos() {
-    this.alumnos = this.alumnoService.getAlumno();
-    this.dataSource = new MatTableDataSource(this.alumnos);
+    this.alumnos = this.alumnoService.getListado();
+    this.numAlumnos = this.alumnoService.cantidadAlumnosInscriptos();
+
+    const miPeticion = new Promise((resolve, reject) => {
+      resolve((this.dataSource = new MatTableDataSource(this.alumnos)));
+      reject({
+        error: 'Error al cargar el listado de alumnos',
+      });
+    });
+
+    miPeticion
+      .then((resultado) => resultado)
+      .catch((error) => alert(error.error));
+
+    this.alumnoService.getAlumnos$().subscribe((ALUMNOS) => {
+      this.alumnos = ALUMNOS;
+    });
+
+    this.alumnoService.getAlumnos$().subscribe((alumnos) => {
+      this.numAlumnos = alumnos.length;
+    });
   }
 
-  abrirABMAlumnos(): void {
+  abrirABMAlumnos() {
     const dialog = this.matDialog.open(AbmAlumnosComponent);
 
     this.cargarAlumnos();
+    this.numAlumnos = this.alumnoService.cantidadAlumnosInscriptos();
+    console.log(this.numAlumnos);
 
     dialog.afterClosed().subscribe((valor) => {
       if (valor) {
         this.alumnoService.agregarAlumno(valor);
-
-        this.dataSource.data = this.alumnoService.getAlumno();
+        this.dataSource.data = this.alumnoService.getListado();
       }
+
+      this.numAlumnos = this.alumnoService.cantidadAlumnosInscriptos();
+      console.log(this.numAlumnos);
     });
   }
 
@@ -76,8 +113,6 @@ export class AlumnosComponent {
 
     this.cargarAlumnos();
     dialog.afterClosed().subscribe((valor) => {
-
-
       //Actualizar un alumno cuando el valor.id sea igual a this.alumnos.id
       if (valor) {
         // buscar el alumno en el arreglo que sea igual a valor.id
