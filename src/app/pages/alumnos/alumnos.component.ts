@@ -27,6 +27,8 @@ export class AlumnosComponent implements OnInit, OnDestroy {
   alumnos: Alumno[] = [];
   cargando = false;
   numAlumnos: number | any;
+  arrAlumnos: Alumno[] | any;
+
   // suscripcionCantidadAlumnos: Subscription | null = null;
   // suscripcionListadoAlumnos: Subscription | null = null;
 
@@ -53,7 +55,9 @@ export class AlumnosComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.cargarAlumnos();
+  
+    
+this.cargarAlumnos();
 
   }
 
@@ -84,10 +88,11 @@ export class AlumnosComponent implements OnInit, OnDestroy {
     dialog.afterClosed().subscribe((valor) => {
       if (valor) {
         this.alumnoService.agregarAlumno(valor);
-        this.dataSource.data = this.alumnoService.getListado();
-      }
+       // this.dataSource.data = this.alumnoService.getListado();
+        this.cargarAlumnos()
 
-     this.numAlumnos = this.alumnoService.cantidadAlumnosInscriptos();
+      }
+    // this.numAlumnos = this.alumnoService.cantidadAlumnosInscriptos();
     });
   }
 
@@ -125,7 +130,7 @@ export class AlumnosComponent implements OnInit, OnDestroy {
           this.alumnos.unshift(alumno);
 
           // Emitir evento de alumnos actualizados
-          this.dataSource.data;
+          this.cargarAlumnos();
         }
       }
     });
