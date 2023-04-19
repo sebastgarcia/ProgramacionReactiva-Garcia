@@ -27,8 +27,8 @@ export class AlumnosComponent implements OnInit, OnDestroy {
   alumnos: Alumno[] = [];
   cargando = false;
   numAlumnos: number | any;
-  suscripcionCantidadAlumnos: Subscription | null = null;
-  suscripcionListadoAlumnos: Subscription | null = null;
+  // suscripcionCantidadAlumnos: Subscription | null = null;
+  // suscripcionListadoAlumnos: Subscription | null = null;
 
   dataSource = new MatTableDataSource(this.alumnos);
 
@@ -49,14 +49,12 @@ export class AlumnosComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.suscripcionListadoAlumnos?.unsubscribe();
-    this.suscripcionCantidadAlumnos?.unsubscribe();
+
   }
 
   ngOnInit(): void {
     this.cargarAlumnos();
-    this.suscripcionListadoAlumnos;
-    this.suscripcionCantidadAlumnos;
+
   }
 
   cargarAlumnos() {
@@ -74,13 +72,6 @@ export class AlumnosComponent implements OnInit, OnDestroy {
       .then((resultado) => resultado)
       .catch((error) => alert(error.error));
 
-    this.alumnoService.getAlumnos$().subscribe((ALUMNOS) => {
-      this.alumnos = ALUMNOS;
-    });
-
-    this.alumnoService.getAlumnos$().subscribe((alumnos) => {
-      this.numAlumnos = alumnos.length;
-    });
   }
 
   abrirABMAlumnos() {
@@ -96,8 +87,7 @@ export class AlumnosComponent implements OnInit, OnDestroy {
         this.dataSource.data = this.alumnoService.getListado();
       }
 
-      this.numAlumnos = this.alumnoService.cantidadAlumnosInscriptos();
-      console.log(this.numAlumnos);
+     this.numAlumnos = this.alumnoService.cantidadAlumnosInscriptos();
     });
   }
 
